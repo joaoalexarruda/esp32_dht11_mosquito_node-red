@@ -68,18 +68,20 @@ The code is all contained in the `src/main.cpp` file. It's divided into 3 main s
 
 2. **Constants**: The constants used in this project are:
 
-   - `WIFI_SSID`: The SSID of the WiFi network to connect to.
-   - `WIFI_PASSWORD`: The password of the WiFi network to connect to.
-   - `MQTT_SERVER`: The IP address of the MQTT broker.
-   - `MQTT_PORT`: The port of the MQTT broker.
-   - `MQTT_TOPIC`: The MQTT topic to publish messages to.
+   - `ssid`: The SSID of the WiFi network to connect to.
+   - `password`: The password of the WiFi network to connect to.
+   - `mqtt_server`: The IP address of the MQTT broker.
+   - `mqtt_port`: The port of the MQTT broker.
    - `DHT_PIN`: The GPIO pin of the ESP32 that the DHT11 sensor is connected to.
    - `DHT_TYPE`: The type of the DHT sensor (DHT11, DHT21 or DHT22).
 
 3. **Functions**: The functions used in this project are:
 
    - `setup()`: The setup function is called once when the ESP32 boots up. It's used to initialize the serial port, connect to the WiFi network and the MQTT broker, and initialize the DHT sensor.
-   - `loop()`: The loop function is called repeatedly after the setup function. It's used to read the temperature and humidity from the DHT sensor and publish them to the MQTT broker.
+   - `loop()`: The loop function is called repeatedly after the setup function. It's used to read the temperature and humidity from the DHT sensor and publish them to the MQTT broker.   
+
+   There are also some helper functions used to connect to the WiFi network and the MQTT broker.
+
 
 ## MQTT Broker
 
@@ -88,6 +90,7 @@ Download and install the Mosquitto MQTT Broker from [here](https://mosquitto.org
 ## Node-RED
 
 Download and install Node-RED from [here](https://nodered.org/docs/getting-started/local).
+
 
 ## Node-RED Dashboard
 
@@ -98,4 +101,14 @@ Install the Node-RED Dashboard from [here](https://flows.nodered.org/node/node-r
 Be sure to follow the hardware setup correctly. If you're using a different ESP32 board, the GPIO pins may be different.
 
 In the mosquitto.conf file, be sure to set the `allow_anonymous` option to `true`.
-Also set listener to `1883 0.0.0.0`.
+Also set listener to `1883 0.0.0.0` as seen below.
+
+![Mosquitto Config](https://imgur.com/OqW4wx4.png)
+
+## Future Improvements
+
+- Connect another ESP32 with a DHT11 sensor to the same MQTT broker and display the data on the same dashboard.
+- Subscribe multiple devices to the same MQTT broker so they can do actions based on the data received.
+- Use a good sensor instead of a cheap DHT11 sensor.
+- Implement a better way to handle errors.
+- Utilize these sensors in a real-world scenario, like a smart home.
