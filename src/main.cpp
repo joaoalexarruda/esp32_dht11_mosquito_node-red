@@ -1,9 +1,9 @@
 // Inclui bibliotecas necessárias
-#include <Arduino.h>
-#include <WiFi.h>
-#include <PubSubClient.h>
-#include <DHT.h>
-#include <Adafruit_Sensor.h>
+#include <Arduino.h> // Este é o arquivo principal incluído do SDK do Arduino. Ele define todas as funções e tipos base usados na programação do Arduino.
+#include <WiFi.h> // Esta é uma biblioteca que permite ao Arduino se conectar a uma rede WiFi. Ela fornece funções para conectar a uma rede, desconectar, verificar o status da conexão, e mais.
+#include <PubSubClient.h> // Esta é uma biblioteca cliente para MQTT (Message Queuing Telemetry Transport), um protocolo de mensagens leve para pequenos sensores e dispositivos móveis. É frequentemente usado em aplicações de IoT.
+#include <DHT.h> // Esta é uma biblioteca para a série DHT de sensores de temperatura/umidade de baixo custo. Ela fornece funções para ler a temperatura e a umidade desses sensores.
+#include <Adafruit_Sensor.h> // Esta é uma classe base para sensores da empresa Adafruit. É usada em conjunto com bibliotecas de sensores específicos (como a biblioteca DHT mencionada acima) para ler dados de sensores Adafruit.
 
 // Wi-Fi login e senha
 const char *ssid = "joaoalex1";
@@ -14,7 +14,7 @@ const char *password = "joao1579";
 #define mqtt_port 1883
 
 // Pino utilizado no ESP32 e sensor DHT11
-#define DHTPIN 27
+#define DHTPIN 4
 #define DHTTYPE DHT11
 DHT dht(DHTPIN, DHTTYPE);
 
@@ -24,8 +24,6 @@ PubSubClient client(espClient);
 
 // Buffer circular para leituras
 const int numReadings = 10;
-float temperatureReadings[numReadings];
-float humidityReadings[numReadings];
 int readingsIndex = 0;
 
 void setup_wifi() {
@@ -61,13 +59,20 @@ void updateReadings(float *readings, float newValue) {
   readingsIndex = (readingsIndex + 1) % numReadings;
 }
 
+// Inicia arrays com -1
+float temperatureReadings[numReadings] = {-1.0};
+float humidityReadings[numReadings] = {-1.0};
+
 float calculateMovingAverage(float *readings) {
-  // Calcular a média móvel das leituras
   float sum = 0;
+  int count = 0;
   for (int i = 0; i < numReadings; i++) {
-    sum += readings[i];
+    if (readings[i] != -1.0) {
+      sum += readings[i];
+      count++;
+    }
   }
-  return sum / numReadings;
+  return sum / count;
 }
 
 void setup() {
@@ -130,6 +135,17 @@ void loop() {
   client.publish(avgHumTopic, avgHumStr);
 
   // Imprimir informações de debug
+  Serial.println();
+  Serial.println("+-------------------+-------------------+");
+  Serial.println("| Parâmetro         | Valor             |");
+  Serial.println("+-------------------+-------------------+");
+  Serial.printf("| Temperatura       | %-17.2f |\n", temperature);
+  Serial.printf("| Umidade           | %-17.2f |\n", humidity);
+  Serial.printf("| Média Móvel Temp. | %-17.2f |\n", avgTemperature);
+  Serial.printf("| Média Móvel Umid. | %-17.2f |\n", avgHumidity);
+  Serial.println("+-------------------+-------------------+");
+  Serial.println();
+
   Serial.println("Publicado temperatura no tópico MQTT: " + String(tempTopic));
   Serial.println("Publicado umidade no tópico MQTT: " + String(humTopic));
   Serial.println("Publicada média móvel de temperatura no tópico MQTT: " + String(avgTempTopic));

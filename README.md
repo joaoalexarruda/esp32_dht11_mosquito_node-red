@@ -6,13 +6,9 @@ It's an assignment for the course "Internet of Things" at the Instituto Politéc
 
 You can find out more about the course [here](https://www.ipportalegre.pt/pt/oferta-formativa/pos-graduacao-data-science-and-digital-transformation).
 
-## Screenshots
+## Screenshot
 
 ![Node-RED Dashboard](https://imgur.com/PkG2q7D.png)
-
-![Node-RED Flow](https://imgur.com/jv2cUAx.png)
-
-![Mosquitto Broker](https://imgur.com/qeqDIId.png)
 
 You can find more screenshots [here](https://imgur.com/a/jabCIWW).
 
