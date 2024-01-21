@@ -23,7 +23,7 @@ WiFiClient espClient;
 PubSubClient client(espClient);
 
 // Buffer circular para leituras
-const int numReadings = 10;
+const int numReadings = 7;
 int readingsIndex = 0;
 
 void setup_wifi() {
@@ -66,14 +66,24 @@ float humidityReadings[numReadings] = {-1.0};
 float calculateMovingAverage(float *readings) {
   float sum = 0;
   int count = 0;
+
+  // Calcular a soma dos valores válidos
   for (int i = 0; i < numReadings; i++) {
     if (readings[i] != -1.0) {
       sum += readings[i];
       count++;
     }
   }
-  return sum / count;
+
+  // Verificar se há pelo menos um valor válido
+  if (count > 0) {
+    return sum / count;
+  } else {
+    return -1.0;  // Retorna um valor indicando que não há dados válidos suficientes para calcular média.
+  }
 }
+
+
 
 void setup() {
   // Inicializar o ESP32 e o sensor DHT
