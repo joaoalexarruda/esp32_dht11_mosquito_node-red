@@ -55,37 +55,6 @@ You can find more screenshots [here](https://imgur.com/a/jabCIWW).
 2. Start Node-RED and open the provided dashboard.
 3. Power on the ESP32.
 
-## Code Explanation
-
-The code is all contained in the `src/main.cpp` file. It's divided into 3 main sections:
-
-1. **Libraries**: The libraries used in this project are:
-
-   - `WiFi.h`: Used to connect to a WiFi network.
-   - `PubSubClient.h`: Used to connect to a MQTT broker and publish messages.
-   - `DHT.h`: Used to read data from the DHT11 sensor.
-   - `Adafruit_Sensor.h`: Used along with the DHT library.
-
-2. **Constants**: The constants used in this project are:
-
-   - `ssid`: The SSID of the WiFi network to connect to.
-   - `password`: The password of the WiFi network to connect to.
-   - `mqtt_server`: The IP address of the MQTT broker.
-   - `mqtt_port`: The port of the MQTT broker.
-   - `DHT_PIN`: The GPIO pin of the ESP32 that the DHT11 sensor is connected to.
-   - `DHT_TYPE`: The type of the DHT sensor (DHT11, DHT21 or DHT22).
-   - `numReadings`: The number of readings on the circular buffer before calculating the average.
-
-3. **Functions**: The functions used in this project are:
-
-   - `setup_wifi()`: The setup_wifi function is used to connect to the WiFi network.
-   - `reconnect()`: The reconnect function is used to connect to the MQTT broker.
-   - `updateReadings()`: The updateReadings function is used to update the circular buffer with new readings from the DHT sensor.
-   - `calculateMovingAverage()`: The calculateMovingAverage function is used to calculate the moving average of the circular buffer.
-   - `setup()`: The setup function is called once when the ESP32 boots up. It's used to initialize the serial port, connect to the WiFi network and the MQTT broker, and initialize the DHT sensor.
-   - `loop()`: The loop function is called repeatedly after the setup function. It's used to read the temperature and humidity from the DHT sensor and publish them to the MQTT broker. It also calls the updateReadings and calculateMovingAverage functions to publish the moving average of the temperature and humidity. It also handles the reconnection to the MQTT broker. It has a nice formatted output to the serial port for debugging purposes.
-
-
 ## MQTT Broker
 
 Download and install the Mosquitto MQTT Broker from [here](https://mosquitto.org/download/).
