@@ -30,6 +30,8 @@ You can find more screenshots [here](https://imgur.com/a/jabCIWW).
 
 ## Setup and Installation
 
+There is a more detailed guide [here](ProjetoFinal_JoaoAlexArrudaDaSilva.pdf).
+
 1. **Hardware Setup**: Connect the DHT11 sensor to your ESP32. The connections are as follows:
 
    - DHT11 VCC to ESP32 3V3
