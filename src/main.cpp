@@ -9,7 +9,7 @@
  * 
  */
 
-// Include the necessary libraries
+// Include the necessary headers/libraries
 #include <Adafruit_Sensor.h>
 #include <Arduino.h>
 #include <DHT.h>
