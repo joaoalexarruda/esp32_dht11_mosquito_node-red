@@ -6,7 +6,7 @@
  *              that reads the temperature and humidity from the DHT11 sensor
  *              then calculates the moving average of the last 5 readings
  *              and publishes the values to a MQTT broker.
- *
+ * 
  */
 
 // Include the necessary libraries
@@ -21,8 +21,8 @@ const char *ssid = "joaoalex1";
 const char *password = "joao1579";
 
 // MQTT broker address and port
-const char *mqtt_server = "192.168.29.165";
-const int mqtt_port = 1883;
+const char *mqttServer = "192.168.29.165";
+const int mqttPort = 1883;
 
 // Number of readings to calculate the moving average
 const int numReadings = 5;
@@ -49,7 +49,7 @@ WiFiClient espClient;
 PubSubClient client(espClient);
 
 // Function to setup the Wi-Fi connection
-void setup_wifi() {
+void setupWifi() {
     delay(10);
     Serial.println("Connecting to " + String(ssid) + "...");
     WiFi.begin(ssid, password);
@@ -110,8 +110,8 @@ float calculateMovingAverage(float *readings) {
 void setup() {
     Serial.begin(115200);  // Initialize serial communication
     dht.begin();           // Initialize DHT sensor
-    setup_wifi();          // Setup Wi-Fi connection
-    client.setServer(mqtt_server, mqtt_port);  // Setup MQTT broker
+    setupWifi();          // Setup Wi-Fi connection
+    client.setServer(mqttServer, mqttPort);  // Setup MQTT broker
 }
 
 // Loop function
