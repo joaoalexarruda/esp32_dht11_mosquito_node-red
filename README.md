@@ -1,6 +1,6 @@
 # Temperature and Humidity Sensor Project
 
-This [project](https://github.com/joaoalexarruda/esp32_dht11_mosquito_node-red) uses an ESP32 and DHT11 sensor to measure temperature and humidity. The data is sent to a Mosquitto broker and visualized on a Node-RED dashboard. It's an improvement over [this simpler project](https://github.com/joaoalexarruda/esp32_dht), which only works on a local network with no dashboard nor broker. Have a look at the old one to see the differences.
+This [project](https://github.com/joaoalexarruda/esp32_dht11_mosquito_node-red) uses an ESP32 and DHT11 sensor to measure temperature and humidity. The data is sent to a Mosquitto broker and visualized on a Node-RED dashboard. It's an improvement over [this simpler project](https://github.com/joaoalexarruda/esp32_dht11_webserver_mqtt), which only works on a local network with no dashboard. Have a look at the old one to see the differences.
 
 It's an assignment for the course "Internet of Things" at the Instituto Politécnico de Portalegre, in Portugal.
 
